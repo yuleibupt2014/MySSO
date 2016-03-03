@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	<!-- 扫描web包，应用Spring的注解 -->
+	<context:component-scan base-package="wtist.web.sso.servlet" />
+
+	<!-- 配置视图解析器，将ModelAndView及字符串解析为具体的页面 -->
+	<!-- <bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:viewClass="org.springframework.web.servlet.view.JstlView" p:prefix="/WEB-INF/jsp/"
+		p:suffix=".jsp" /> -->
+	<!-- 模板信息设置 -->
+    <bean id="velocityConfigurer"
+        class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath"  value="WEB-INF/views" />
+        <property name="velocityProperties">
+            <props>
+                <prop key="input.encoding">UTF-8</prop>
+                <prop key="output.encoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+	
+	<!-- 设置视图解析工具 -->
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="suffix" value=".vm" />
+        <property name="contentType" value="text/html;charset=UTF-8" />
+        <property name="dateToolAttribute" value="dateTool" />
+        <property name="numberToolAttribute" value="numberTool" />
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+    </bean>
+    <!-- <mvc:default-servlet-handler/> -->
+		
+		<!-- <mvc:resources location="/static/" mapping="/static/**"/> -->
+	<!-- <mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean
+				class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven> -->
+
+</beans>
